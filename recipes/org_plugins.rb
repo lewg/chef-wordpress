@@ -1,9 +1,8 @@
 #
-# Author:: Barry Steinglass (<barry@opscode.com>)
 # Cookbook Name:: wordpress
-# Attributes:: wordpress
+# Recipe:: org_plugins
 #
-# Copyright 2009-2010, Opscode, Inc.
+# Copyright 2012, Lewis J. Goettner, III 
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,14 +16,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+include_recipe 'subversion'
 
-# General settings
-default['wordpress']['version'] = "3.3.1"
-default['wordpress']['checksum'] = "e884db6e551c155f022533b6653867b048088cd3cbcbfe546b404696dd960dc2"
-default['wordpress']['dir'] = "/var/www/wordpress"
-default['wordpress']['db']['database'] = "wordpressdb"
-default['wordpress']['db']['user'] = "wordpressuser"
-default['wordpress']['server_aliases'] = [node['fqdn']]
+# Install WordPress.org Plugins from node attributes
+node['wordpress']['org_plugins'].each do |plugin_name|
+  wordpress_org_plugin plugin_name
+end
 
-# Plugin Lists
-default['wordpress']['plugins'] = []

@@ -22,12 +22,9 @@ require 'open-uri'
 # Pull a theme from the wordpress.org site
 define :wordpress_org_theme, :tag => false do
 
-  theme_path = params[:path]
-  # Infer from the name if not specified
-  unless params[:path]
-    theme_path = params[:name].tr(" ","-").downcase
-  end
-
+  # Infer the path from the name if it's not specified
+  theme_path = params[:path] ? params[:path] : params[:name].tr(" ","-").downcase
+  
   info_url = "http://wordpress.org/extend/themes/#{theme_path}"
   base_url = "http://themes.svn.wordpress.org/#{theme_path}"
   theme_tag = params[:tag]

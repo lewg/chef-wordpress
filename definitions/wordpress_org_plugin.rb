@@ -22,12 +22,9 @@ require 'open-uri'
 # Install a plugin from wordpress.org 
 define :wordpress_org_plugin, :tag => false do
 
-  plugin_path = params[:path]
-  # Infer from the name if not specified
-  unless params[:path]
-    plugin_path = params[:name].tr(" ","-").downcase
-  end
-
+  # Infer the path from the name unless it's specified
+  plugin_path = params[:path] ? params[:path] : params[:name].tr(" ","-").downcase
+  
   # Pull the plugin from the official repository
   base_url = "http://plugins.svn.wordpress.org/#{plugin_path}"
   theme_tag = params[:tag]
