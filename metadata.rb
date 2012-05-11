@@ -7,7 +7,7 @@ version          "0.8.8"
 
 recipe "WordPress", "Installs and configures WordPress LAMP stack on a single system"
 
-%w{ php openssl }.each do |cb|
+%w{ build-essential php openssl }.each do |cb|
   depends cb
 end
 
