@@ -3,6 +3,10 @@ Description
 
 Installs and configures Wordpress according to the instructions at http://codex.wordpress.org/Installing_WordPress. Does not set up a wordpress blog. You will need to do this manually by going to http://hostname/wp-admin/install.php (this URL may be different if you change the attribute values).
 
+About This Branch
+-----------------
+I'll try to keep this branch up to date with the latest and greatest. 
+
 Requirements
 ============
 
@@ -13,7 +17,7 @@ Platform
 
 Tested on:
 
-* Ubuntu 9.04, 9.10, 10.04
+* Ubuntu 9.04, 9.10, 10.04, 11.10, 12.04
 
 Cookbooks
 ---------
