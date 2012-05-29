@@ -23,7 +23,7 @@ require 'open-uri'
 define :wordpress_org_plugin, :tag => false do
 
   # Infer the path from the name unless it's specified
-  plugin_path = params[:path] ? params[:path] : params[:name].tr(" ","-").downcase
+  plugin_path = params[:path] ? params[:path] : params[:name].tr(" ","-").downcase.tr("/","").tr(".","")
   
   # Pull the plugin from the official repository
   base_url = "http://plugins.svn.wordpress.org/#{plugin_path}"
@@ -34,7 +34,7 @@ define :wordpress_org_plugin, :tag => false do
     # Scan the info
     remote_url = "#{base_url}/trunk/readme.txt"
     info_text = open(remote_url) {|f| f.read }
-    version = info_text.scan(/^Stable tag: (.+?) *$/)
+    version = info_text.scan(/^Stable tag: ([a-zA-Z0-9\.]+)/i)
     theme_tag = version[0][0]
   end
 
