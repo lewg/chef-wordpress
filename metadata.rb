@@ -5,7 +5,9 @@ description      "Installs/Configures WordPress"
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          "0.8.8"
 
-recipe "WordPress", "Installs and configures WordPress LAMP stack on a single system"
+recipe "wordpress", "Installs and configures WordPress LAMP stack on a single system"
+recipe "wordpress::org_plugins", "Installs plugins from wordpress.org based on node attributes"
+recipe "wordpress::org_themes", "Installs themes from wordpress.org based on node attributes"
 
 %w{ php openssl }.each do |cb|
   depends cb
@@ -13,6 +15,7 @@ end
 
 depends "apache2", ">= 0.99.4"
 depends "mysql", ">= 1.0.5"
+depends "subversion"
 
 %w{ debian ubuntu }.each do |os|
   supports os
