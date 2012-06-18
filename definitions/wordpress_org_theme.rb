@@ -43,8 +43,8 @@ define :wordpress_org_theme, :tag => false do
     revision 'HEAD'
     destination "#{node['wordpress']['dir']}/wp-content/themes/#{theme_path}"
     action :export
-    user node[:apache][:user]
-    group node[:apache][:group]
+    user node['apache']['user']
+    group node['apache']['group']
   end
 
 end
