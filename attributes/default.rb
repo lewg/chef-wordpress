@@ -19,12 +19,15 @@
 #
 
 # General settings
-default['wordpress']['version'] = "3.3.1"
-default['wordpress']['checksum'] = "e884db6e551c155f022533b6653867b048088cd3cbcbfe546b404696dd960dc2"
+default['wordpress']['version'] = "latest"
+default['wordpress']['checksum'] = ""
 default['wordpress']['dir'] = "/var/www/wordpress"
 default['wordpress']['db']['database'] = "wordpressdb"
 default['wordpress']['db']['user'] = "wordpressuser"
 default['wordpress']['server_aliases'] = [node['fqdn']]
 
-# Plugin Lists
-default['wordpress']['plugins'] = []
+# Plugin List
+default['wordpress']['org_plugins'] = {}
+
+# Themes List
+default['wordpress']['org_themes'] = {}

@@ -19,7 +19,10 @@
 include_recipe 'subversion'
 
 # Install WordPress.org Plugins from node attributes
-node['wordpress']['org_plugins'].each do |plugin_name|
-  wordpress_org_plugin plugin_name
+node['wordpress']['org_plugins'].each do |plugin_name, attributes|
+  wordpress_org_plugin plugin_name do
+    tag attributes['tag']
+    path attributes['path']
+  end
 end
 
