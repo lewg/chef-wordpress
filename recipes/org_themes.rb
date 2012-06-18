@@ -19,7 +19,10 @@
 include_recipe 'subversion'
 
 # Install WordPress.org Themes from node attributes
-node['wordpress']['org_themes'].each do |theme_name|
-  wordpress_org_theme theme_name
+node['wordpress']['org_themes'].each do |theme_name, attributes|
+  wordpress_org_theme theme_name do
+    tag attributes['tag']
+    path attributes['path']
+  end
 end
 

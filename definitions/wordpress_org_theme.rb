@@ -32,7 +32,7 @@ define :wordpress_org_theme, :tag => false do
   # Scan for the tag if necessary info
   unless params[:tag]
     info_text = open(info_url) {|f| f.read }
-    version = info_text.scan(/<li><strong>Version:<\/strong> (.+?)<\/li>/)
+    version = info_text.scan(/>Download Version (.+?)<\/a>/)
     theme_tag = version[0][0]
   end
 

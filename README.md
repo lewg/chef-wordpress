@@ -17,7 +17,7 @@ Platform
 
 Tested on:
 
-* Ubuntu 9.04, 9.10, 10.04, 11.10, 12.04
+* Ubuntu 9.04, 9.10, 10.04, 12.04
 
 Cookbooks
 ---------
@@ -26,6 +26,7 @@ Cookbooks
 * php
 * apache2
 * opensssl (uses library to generate secure passwords)
+* subversion
 
 Attributes
 ==========
@@ -47,6 +48,15 @@ Attributes will probably never need to change (these all default to randomly gen
 
 The random generation is handled with the secure_password method in the openssl cookbook which is a cryptographically secure random generator and not predictable like the random method in the ruby standard library.
 
+If you use the wordpress::org_plugins recipe, it will look for plugins definitions in:
+
+* `node['wordpress']['org_plugins']`
+
+If you user the wordpress:org_themes recipe, it will look for theme definitions in:
+
+* `node['wordpress']['org_themes']`
+
+
 Usage
 =====
 
@@ -62,12 +72,61 @@ The mysql::server recipe needs to come first, and contain an execute resource to
 
 This cookbook will decouple the mysql::server and be smart about detecting whether to use a local database or find a database server in the environment in a later version.
 
+## Wordpress.org Plugins - Definition and Recipe
+
+This cookbook provides a definition for adding plugins from wordpress.org's plugin directory to your site. My default, just given a name, the defintion will attempt to guess the path to the plugin (on plugins.trac.wordpress.org) by replacing all the spaces with dashes, and removing some punctutation. Additionally, it will pull the latest version of the plugin based off the information provided by the plugin's readme.txt file. However, both the path and tag can be overridden ('trunk' being a special case, and choosing the trunk of the repository over a tag). Here's an example with minimal usage:
+
+    wordpress_org_plugin 'Debug Bar'
+
+And one with the full specificiation:
+
+    wordpress_org_plugin 'Bit.ly Service'
+      path  'bitly-service'
+      tag   'trunk'
+    end
+
+Something like the above might be necessary if a plugin specifies a tag that doesn't actually exist in the plugins.trac.wordpress.org subversion repository, or the name doesn't match up with the subversion path. 
+
+In the case you would like to pass your plugin definitions as node attributes, the wordpress::org_plugins recipe will read the `node['wordpress']['org_plugins']` attribute and apply the definition to each plugin defined. Here's what the following two examples would like like in that case:
+
+    node['wordpress']['org_plugins'] = {
+      'Debug Bar' => {},
+      'Bit.ly Service' => {
+        'path' => 'bitly-service',
+        'tag' => 'trunk'
+      }
+    }
+
+## Wordpress.org Themes - Definition and Recipe
+
+Like the plugin defintion and recipe above, there is also the ability to install themes from the wordpress.org theme repository. The syntax is the same as above, so a simple example would be:
+
+    wordpress_org_theme 'Toolbox'
+
+And a fully specificed example is:
+
+    wordpress_org_theme 'Pagelines' do
+      tag '1.1.3'
+      path 'pagelines'
+    end
+
+Additionally, there is a `wordpress::org_themes` recipe to specify themes via node attributes. Here's the matching example to install the two themes from above:
+
+    node['wordpress']['org_themes'] = {
+      'Toolbox' => {},
+      'Pagelines' => {
+        'path' => 'pagelines',
+        'tag' => '1.1.3'
+      }
+    }
+
 License and Author
 ==================
 
 Author:: Barry Steinglass (barry@opscode.com)
 Author:: Joshua Timberman (joshua@opscode.com)
 Author:: Seth Chisamore (schisamo@opscode.com)
+Author:: Lew Goettner (lew@goettner.net)
 
 Copyright:: 2010-2011, Opscode, Inc
 

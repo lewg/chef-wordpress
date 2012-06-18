@@ -26,5 +26,8 @@ default['wordpress']['db']['database'] = "wordpressdb"
 default['wordpress']['db']['user'] = "wordpressuser"
 default['wordpress']['server_aliases'] = [node['fqdn']]
 
-# Plugin Lists
-default['wordpress']['plugins'] = []
+# Plugin List
+default['wordpress']['org_plugins'] = {}
+
+# Themes List
+default['wordpress']['org_themes'] = {}
