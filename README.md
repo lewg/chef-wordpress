@@ -22,6 +22,7 @@ Tested on:
 Cookbooks
 ---------
 
+* build-essential
 * mysql
 * php
 * apache2

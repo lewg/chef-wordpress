@@ -17,6 +17,7 @@
 # limitations under the License.
 #
 
+include_recipe "build-essential"
 include_recipe "apache2"
 include_recipe "mysql::server"
 include_recipe "php"

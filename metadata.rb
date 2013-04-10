@@ -9,7 +9,7 @@ recipe "wordpress", "Installs and configures WordPress LAMP stack on a single sy
 recipe "wordpress::org_plugins", "Installs plugins from wordpress.org based on node attributes"
 recipe "wordpress::org_themes", "Installs themes from wordpress.org based on node attributes"
 
-%w{ php openssl }.each do |cb|
+%w{ build-essential php openssl }.each do |cb|
   depends cb
 end
 
